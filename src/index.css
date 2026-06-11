@@ -94,7 +94,6 @@ body {
 .example-chip:hover { background: #e8ecf5; color: #667eea; }
 
 /* ── Reply card ────────────────────────────────────────────── */
-.reply-card {}
 .reply-box {
   background: #2b2c2d;
   border-left: 4px solid #667eea;
