@@ -9,7 +9,7 @@ Allows support agents to get AI-suggested replies grounded in past support ticke
 
 | | URL |
 |---|---|
-| 🖥️ Frontend | `https://your-frontend.netlify.app` |
+| 🖥️ Frontend | `https://real-time-support-copilot.netlify.app` |
 | ⚙️ Backend Repo | `https://github.com/SahlaThasnim89/support-copilot-backend.git` |
 | ⚙️ Backend API | `https://support-copilot-backend.onrender.com` |
 | 📖 API Docs | `https://support-copilot-backend.onrender.com/docs` |
