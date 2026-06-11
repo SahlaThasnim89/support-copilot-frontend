@@ -11,8 +11,8 @@ Allows support agents to get AI-suggested replies grounded in past support ticke
 |---|---|
 | 🖥️ Frontend | `https://your-frontend.vercel.app` |
 | ⚙️ Backend Repo | `https://github.com/SahlaThasnim89/support-copilot-backend.git` |
-| ⚙️ Backend API | `https://your-backend.onrender.com` |
-| 📖 API Docs | `https://your-backend.onrender.com/docs` |
+| ⚙️ Backend API | `https://support-copilot-backend.onrender.com` |
+| 📖 API Docs | `https://support-copilot-backend.onrender.com/docs` |
 
 > Replace with your actual deployed URLs after deployment.
 
