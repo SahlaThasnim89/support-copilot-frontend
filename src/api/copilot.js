@@ -1,7 +1,5 @@
-// src/api/copilot.js
-// All API calls to the FastAPI backend
 
-const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const BASE_URL = import.meta.env.VITE_API_URL || "https://support-copilot-backend.onrender.com";
 
 /**
  * POST /suggest-reply
