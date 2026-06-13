@@ -9,12 +9,11 @@ Allows support agents to get AI-suggested replies grounded in past support ticke
 
 | | URL |
 |---|---|
-| 🖥️ Frontend | `https://your-frontend.vercel.app` |
+| 🖥️ Frontend | `https://real-time-support-copilot.netlify.app` |
 | ⚙️ Backend Repo | `https://github.com/SahlaThasnim89/support-copilot-backend.git` |
-| ⚙️ Backend API | `https://your-backend.onrender.com` |
-| 📖 API Docs | `https://your-backend.onrender.com/docs` |
+| ⚙️ Backend API | `https://support-copilot-backend.onrender.com` |
+| 📖 API Docs | `https://support-copilot-backend.onrender.com/docs` |
 
-> Replace with your actual deployed URLs after deployment.
 
 ---
 
@@ -25,7 +24,7 @@ Allows support agents to get AI-suggested replies grounded in past support ticke
 | Framework | React 18 |
 | Build Tool | Vite |
 | Styling | Plain CSS (no framework) |
-| Hosting | Vercel |
+| Hosting | Netlify |
 
 ---
 
@@ -70,14 +69,14 @@ frontend/
 
 ### Prerequisites
 - Node.js 18+
-- Backend API running (see [backend repo](https://github.com/yourusername/support-copilot-backend))
+- Backend API running (see [backend repo](https://github.com/SahlaThasnim89/support-copilot-backend.git))
 
 ---
 
 ### Step 1 — Clone and Install
 
 ```bash
-git clone https://github.com/yourusername/support-copilot-frontend.git
+git clone https://github.com/SahlaThasnim89/support-copilot-frontend.git
 cd support-copilot-frontend
 npm install
 ```
@@ -120,16 +119,23 @@ Output goes to `dist/` folder.
 
 ---
 
-## 🚀 Deployment on Vercel
-
+## 🚀 Deployment on Netlify
+ 
 1. Push code to GitHub
-2. Go to [vercel.com](https://vercel.com) → **New Project**
+2. Go to [netlify.com](https://netlify.com) → **Add new site** → **Import an existing project**
 3. Connect your GitHub repo
-4. Add environment variable:
+4. Configure build settings:
+   - **Build command:** `npm run build`
+   - **Publish directory:** `dist`
+5. Add environment variable under **Site settings → Environment variables**:
    - **Key:** `VITE_API_URL`
    - **Value:** `https://your-backend.onrender.com`
-5. Click **Deploy**
-
+6. Click **Deploy site**
+> **Note:** For client-side routing, add a `_redirects` file inside the `public/` folder with:
+> ```
+> /* /index.html 200
+> ```
+ 
 ---
 
 ## 🔌 API Integration
@@ -159,10 +165,10 @@ The backend URL is read from `VITE_API_URL` environment variable.
 │  [example chip] [example chip]         │
 │                    [Get Suggestion →]  │
 ├────────────────────────────────────────┤
-│  ⏳ Loading (animated steps)           │
-│  🔍 Embedding your query...            │
-│  📂 Searching past tickets...          │
-│  🤖 Generating reply...                │
+│   Loading (animated steps)           │
+│   Embedding your query...            │
+│   Searching past tickets...          │
+│   Generating reply...                │
 ├────────────────────────────────────────┤
 │  💬 Suggested Reply      👍 👎         │
 │  ┌──────────────────────────────────┐  │
