@@ -7,7 +7,7 @@ export default function LoadingState() {
     const steps = [
         { text: "Embedding your query..." },
         { text: "Searching past tickets..." },
-        { text: "Generating reply with Gemini..." },
+        { text: "Generating reply..." },
     ];
 
     return (
