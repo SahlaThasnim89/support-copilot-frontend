@@ -33,3 +33,44 @@ export async function submitFeedback({ query, suggested_reply, ticket_ids, ratin
   });
   return response.json();
 }
+
+
+export async function streamSuggestReply(message, onToken, onDone, onError) {
+  try {
+    const response = await fetch(`${BASE_URL}/suggest-reply/stream`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message }),
+    });
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+
+      const chunk = decoder.decode(value);
+      const lines = chunk.split('\n').filter(line => line.startsWith('data: '));
+
+      for (const line of lines) {
+        try {
+          const data = JSON.parse(line.replace('data: ', ''));
+          if (data.token) {
+            onToken(data.token);
+          }
+          if (data.done) {
+            onDone(data.citations || [], data.retrieved_count || 0);
+          }
+          if (data.error) {
+            onError(data.error);
+          }
+        } catch (e) {
+          console.error('Parse error:', e);
+        }
+      }
+    }
+  } catch (error) {
+    onError(error.message);
+  }
+}

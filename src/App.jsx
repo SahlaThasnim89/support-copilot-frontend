@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { suggestReply, submitFeedback } from "./api/copilot";
+import { suggestReply, submitFeedback, streamSuggestReply } from "./api/copilot";
 import QueryInput from "./components/QueryInput";
 import SuggestedReply from "./components/SuggestedReply";
 import Citations from "./components/Citations";
@@ -13,22 +13,49 @@ export default function App() {
   const [query, setQuery]       = useState("");
   const [feedback, setFeedback] = useState(null);   // "up" | "down" | null
 
-  async function handleSubmit(message) {
-    setLoading(true);
-    setError(null);
-    setResult(null);
-    setFeedback(null);
-    setQuery(message);
+  // async function handleSubmit(message) {
+  //   setLoading(true);
+  //   setError(null);
+  //   setResult(null);
+  //   setFeedback(null);
+  //   setQuery(message);
 
-    try {
-      const data = await suggestReply(message);
-      setResult(data);
-    } catch (err) {
-      setError(err.message);
-    } finally {
+  //   try {
+  //     const data = await suggestReply(message);
+  //     setResult(data);
+  //   } catch (err) {
+  //     setError(err.message);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }
+
+  const handleSubmit = async () => {
+  if (!query.trim()) return;
+
+  setLoading(true);
+  setReply('');
+  setCitations([]);
+  setError(null);
+
+  await streamSuggestReply(
+    query,
+    // onToken — append each token as it arrives
+    (token) => {
+      setReply(prev => prev + token);
+    },
+    // onDone — set citations when complete
+    (citations, retrievedCount) => {
+      setCitations(citations);
+      setLoading(false);
+    },
+    // onError
+    (error) => {
+      setError(error);
       setLoading(false);
     }
-  }
+  );
+};
 
   async function handleFeedback(rating) {
     if (!result || feedback) return;
