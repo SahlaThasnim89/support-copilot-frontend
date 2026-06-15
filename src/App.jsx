@@ -163,7 +163,8 @@ export default function App() {
       <main className="main">
         <QueryInput onSubmit={handleSubmit} loading={loading} />
 
-        {loading && <LoadingState />}
+        {/* Show spinner only when no reply yet */}
+        {loading && !reply && <LoadingState />}
 
         {error && (
           <div className="error-box">
@@ -171,20 +172,23 @@ export default function App() {
           </div>
         )}
 
-        {reply && !loading && (
+        {/* Show reply during AND after streaming */}
+        {reply && (
           <div className="results">
             <SuggestedReply
               reply={reply}
               onFeedback={handleFeedback}
               feedback={feedback}
             />
-            <Citations
-              citations={citations}
-              retrievedCount={retrievedCount}
-            />
+            {/* Citations only appear after streaming completes */}
+            {!loading && (
+              <Citations
+                citations={citations}
+                retrievedCount={retrievedCount}
+              />
+            )}
           </div>
         )}
       </main>
     </div>
   );
-}
