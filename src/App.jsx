@@ -89,7 +89,6 @@
 //   );
 // }
 
-
 import { useState } from "react";
 import { submitFeedback, streamSuggestReply } from "./api/copilot";
 import QueryInput from "./components/QueryInput";
@@ -99,12 +98,12 @@ import LoadingState from "./components/LoadingState";
 import "./index.css";
 
 export default function App() {
-  const [reply, setReply]       = useState("");
+  const [reply, setReply] = useState("");
   const [citations, setCitations] = useState([]);
   const [retrievedCount, setRetrievedCount] = useState(0);
-  const [loading, setLoading]   = useState(false);
-  const [error, setError]       = useState(null);
-  const [query, setQuery]       = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [query, setQuery] = useState("");
   const [feedback, setFeedback] = useState(null);
 
   async function handleSubmit(message) {
@@ -119,17 +118,14 @@ export default function App() {
 
     await streamSuggestReply(
       message,
-      // onToken — append each token as it arrives
       (token) => {
-        setReply(prev => prev + token);
+        setReply((prev) => prev + token);
       },
-      // onDone — set citations when complete
       (citations, retrievedCount) => {
         setCitations(citations);
         setRetrievedCount(retrievedCount);
         setLoading(false);
       },
-      // onError
       (err) => {
         setError(err);
         setLoading(false);
@@ -163,7 +159,6 @@ export default function App() {
       <main className="main">
         <QueryInput onSubmit={handleSubmit} loading={loading} />
 
-        {/* Show spinner only when no reply yet */}
         {loading && !reply && <LoadingState />}
 
         {error && (
@@ -172,7 +167,6 @@ export default function App() {
           </div>
         )}
 
-        {/* Show reply during AND after streaming */}
         {reply && (
           <div className="results">
             <SuggestedReply
@@ -180,7 +174,6 @@ export default function App() {
               onFeedback={handleFeedback}
               feedback={feedback}
             />
-            {/* Citations only appear after streaming completes */}
             {!loading && (
               <Citations
                 citations={citations}
@@ -192,3 +185,4 @@ export default function App() {
       </main>
     </div>
   );
+}
